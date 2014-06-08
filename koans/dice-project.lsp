@@ -22,15 +22,17 @@
 
 ;;  YOU WRITE THIS PART:
 (defclass dice-set ()
-  () ;; WRITE DICE-SET CLASS BODY HERE
+  ((dice-values :reader get-values :initform '())) ;; WRITE DICE-SET CLASS BODY HERE
 )
 
 (defmethod get-values ((object dice-set))
-  ;; WRITE GET-VALUES METHOD DEFINITION HERE
+  (slot-value object 'dice-values)
 )
 
 (defmethod roll (how-many (object dice-set))
-  ;; WRITE ROLL METHOD DEFINITION HERE
+  (let ((lvs (loop for x from 1 to how-many 
+                      collect (+ (random 5) +1))))
+    (setf (slot-value object 'dice-values) lvs))
 )
 
 
